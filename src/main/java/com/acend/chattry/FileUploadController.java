@@ -73,52 +73,52 @@ public class FileUploadController {
     private static final String FILE_URL_PREFIX = "https://amrutharamakumar.online/uploads/"; // Update this with your actual server URL
 
     
-//    @PostMapping("/upload")
-//    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-//        try {
-//            if (file.isEmpty()) {
-//                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty");
-//            }
-//
-//            // Ensure directory exists
-//            Files.createDirectories(Paths.get(UPLOAD_DIR));
-//
-//            // Save file with timestamp to prevent name collisions
-//            String fileName = System.currentTimeMillis() + "_" + StringUtils.cleanPath(file.getOriginalFilename());
-//            Path filePath = Paths.get(UPLOAD_DIR, fileName);
-//            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-//
-//            // Return the complete file URL
-//            String fileUrl = FILE_URL_PREFIX + fileName;
-//            return ResponseEntity.ok(fileUrl);
-//
-//        } catch (IOException e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
-//        }
-//    }
-    
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-        String uploadDir = "/home/ubuntu/uploads";
-
         try {
-            File folder = new File(uploadDir);
-            if (!folder.exists()) {
-                folder.mkdirs();
+            if (file.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("File is empty");
             }
 
-            String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
-            String filePath = uploadDir + "/" + fileName;
+            // Ensure directory exists
+            Files.createDirectories(Paths.get(UPLOAD_DIR));
 
-            file.transferTo(new File(filePath));
+            // Save file with timestamp to prevent name collisions
+            String fileName = System.currentTimeMillis() + "_" + StringUtils.cleanPath(file.getOriginalFilename());
+            Path filePath = Paths.get(UPLOAD_DIR, fileName);
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            String fileUrl = "https://amrutharamakumar.online/uploads/" + fileName;
+            // Return the complete file URL
+            String fileUrl = FILE_URL_PREFIX + fileName;
             return ResponseEntity.ok(fileUrl);
+
         } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload file");
         }
     }
+    
+//    @PostMapping("/upload")
+//    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+//        String uploadDir = "/home/ubuntu/uploads";
+//
+//        try {
+//            File folder = new File(uploadDir);
+//            if (!folder.exists()) {
+//                folder.mkdirs();
+//            }
+//
+//            String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
+//            String filePath = uploadDir + "/" + fileName;
+//
+//            file.transferTo(new File(filePath));
+//
+//            String fileUrl = "https://amrutharamakumar.online/uploads/" + fileName;
+//            return ResponseEntity.ok(fileUrl);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload failed.");
+//        }
+//    }
 
     
     @PostMapping("/mark-read")
