@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/media/**")
-                .addResourceLocations("file:src/main/resources/static/media/");
+        registry.addResourceHandler("/uploads/**")
+                .addResourceLocations("file:/home/ubuntu/uploads/");  // Absolute path!
     }
 }

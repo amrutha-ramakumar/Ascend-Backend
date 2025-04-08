@@ -65,9 +65,9 @@ public class FileUploadController {
     private JwtProvider jwtProvider;
     @Autowired 
     private UserRepository userRepository;
-    private static final String UPLOAD_DIR = "src/main/resources/static/media/";
+    private static final String UPLOAD_DIR = "/home/ubuntu/uploads";
 //    private static final String FILE_URL_PREFIX = "http://localhost:8080/media/"; // Update this with your actual server URL
-    private static final String FILE_URL_PREFIX = "https://amrutharamakumar.online/media/"; // Update this with your actual server URL
+    private static final String FILE_URL_PREFIX = "https://amrutharamakumar.online/uploads/"; // Update this with your actual server URL
 
     
     @PostMapping("/upload")
